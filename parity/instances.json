@@ -1,0 +1,56 @@
+{
+  "_comment": "Raptech is one SaaS codebase (one legacy app, one migrated app) deployed as separate production instances that differ ONLY in data: India (hosted in India) and International (hosted in US). The same parity cases run against any instance below; only URLs + credentials change. Credentials are NEVER stored here — only the names of the .env vars that hold them. Set enabled:true and fill baseUrl + add the env vars before using an instance.",
+
+  "instances": {
+    "local-dev": {
+      "label": "Local dev — migrated on localhost, legacy = staging reference",
+      "enabled": true,
+      "migrated": { "baseUrl": "http://localhost:8080" },
+      "legacy":   { "baseUrl": "https://staging.ipactsolutions.com/SCM", "signInPath": "/signIn" },
+      "credentials": {
+        "migrated": {
+          "superadmin": { "userEnv": "RAPTECH_SUPERADMIN_USER", "passEnv": "RAPTECH_SUPERADMIN_PASSWORD" },
+          "regular":    { "userEnv": "RAPTECH_USER",            "passEnv": "RAPTECH_PASSWORD" }
+        },
+        "legacy": {
+          "superadmin": { "userEnv": "LEGACY_SUPERADMIN_USER", "passEnv": "LEGACY_SUPERADMIN_PASSWORD" },
+          "regular":    { "userEnv": "LEGACY_USER",            "passEnv": "LEGACY_PASSWORD" }
+        }
+      }
+    },
+
+    "india": {
+      "label": "India production (hosted in India)",
+      "enabled": false,
+      "migrated": { "baseUrl": "TODO-migrated-india-url" },
+      "legacy":   { "baseUrl": "TODO-legacy-india-url", "signInPath": "/signIn" },
+      "credentials": {
+        "migrated": {
+          "superadmin": { "userEnv": "INDIA_MIG_SUPERADMIN_USER", "passEnv": "INDIA_MIG_SUPERADMIN_PASSWORD" },
+          "regular":    { "userEnv": "INDIA_MIG_USER",            "passEnv": "INDIA_MIG_PASSWORD" }
+        },
+        "legacy": {
+          "superadmin": { "userEnv": "INDIA_LEG_SUPERADMIN_USER", "passEnv": "INDIA_LEG_SUPERADMIN_PASSWORD" },
+          "regular":    { "userEnv": "INDIA_LEG_USER",            "passEnv": "INDIA_LEG_PASSWORD" }
+        }
+      }
+    },
+
+    "international": {
+      "label": "International production (hosted in US)",
+      "enabled": false,
+      "migrated": { "baseUrl": "TODO-migrated-intl-url" },
+      "legacy":   { "baseUrl": "TODO-legacy-intl-url", "signInPath": "/signIn" },
+      "credentials": {
+        "migrated": {
+          "superadmin": { "userEnv": "INTL_MIG_SUPERADMIN_USER", "passEnv": "INTL_MIG_SUPERADMIN_PASSWORD" },
+          "regular":    { "userEnv": "INTL_MIG_USER",            "passEnv": "INTL_MIG_PASSWORD" }
+        },
+        "legacy": {
+          "superadmin": { "userEnv": "INTL_LEG_SUPERADMIN_USER", "passEnv": "INTL_LEG_SUPERADMIN_PASSWORD" },
+          "regular":    { "userEnv": "INTL_LEG_USER",            "passEnv": "INTL_LEG_PASSWORD" }
+        }
+      }
+    }
+  }
+}

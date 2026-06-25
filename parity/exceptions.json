@@ -1,0 +1,51 @@
+{
+  "_comment": "Saved parity exceptions: diffs a human reviewed and labelled 'migrated is correct / intended improvement'. The runner treats a result row whose aspect contains one of acceptedAspects as ACCEPTED (passes, writes no finding). Keyed by case id.",
+  "TC-PRICE-000": {
+    "acceptedAspects": [
+      "Grid columns match legacy"
+    ],
+    "note": "Org Pricing grid columns are an intentional migrated redesign (pricing-centric: Organization/Plan/Product/Grand Total/From/To/Txn ID/Status). Migrated is the source of truth for this grid; legacy's contact/audit columns are deliberately not carried over.",
+    "by": "user",
+    "date": "2026-06-23"
+  },
+  "TC-USER-000": {
+    "acceptedAspects": [
+      "Grid columns match legacy"
+    ],
+    "note": "Users grid adds Department + Designation columns vs legacy — accepted as a useful enhancement (F-0012). Migrated is the source of truth for this grid's columns.",
+    "by": "user",
+    "date": "2026-06-24"
+  },
+  "TC-MSEG-000": {
+    "acceptedAspects": [
+      "Grid columns match legacy"
+    ],
+    "note": "Market Segment grid header reads 'Regional Name' (the entity name) vs legacy 'Segment Name' — accepted as-is (F-0014). Migrated is the source of truth for this grid's columns.",
+    "by": "user",
+    "date": "2026-06-24"
+  },
+  "TC-ADDR-000": {
+    "acceptedAspects": [
+      "Grid columns match legacy"
+    ],
+    "note": "Addresses grid adds Updated Date + Status columns vs legacy — accepted as a useful enhancement (F-0015). Migrated is the source of truth for this grid's columns.",
+    "by": "user",
+    "date": "2026-06-24"
+  },
+  "TC-GEN-DL-000": {
+    "acceptedAspects": [
+      "Grid columns match legacy"
+    ],
+    "note": "Transaction Date Lock grid header reads 'Entity Alias' vs legacy 'Entity' — accepted (F-0020); 'Entity Alias' is the intended migrated label.",
+    "by": "user",
+    "date": "2026-06-24"
+  },
+  "TC-GEN-FY-000": {
+    "acceptedAspects": [
+      "Grid columns match legacy"
+    ],
+    "note": "Financial Year grid uses 'Entity Alias' (vs legacy 'Entity') and adds a Status column — accepted (F-0021) as the intended migrated labels/enhancement.",
+    "by": "user",
+    "date": "2026-06-24"
+  }
+}

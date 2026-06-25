@@ -1,0 +1,16 @@
+{
+  "_comment": "Static dataset for TC-ORG-001 (Create Organization). The case adds a unique run stamp to name/email/aliases at runtime so repeated runs don't collide. Country/State/Currency must be values that exist in BOTH apps' dropdowns.",
+  "firstName": "Parity",
+  "lastName": "Tester",
+  "address1": "1 Test Street",
+  "phoneNo": "5551234567",
+  "country": "India",
+  "state": "Karnataka",
+  "city": "Bangalore",
+  "postalCode": "560001",
+  "enterprisePlan": "Ipact Enterprise",
+  "currency": "INR",
+  "dateFormat": "MM/dd/yyyy",
+  "product": "Contract",
+  "allowPriceChange": "Yes"
+}
