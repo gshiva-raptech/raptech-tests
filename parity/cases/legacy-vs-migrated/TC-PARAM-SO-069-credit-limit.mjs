@@ -55,7 +55,7 @@ export default {
           body: p.toString(), redirect: 'follow',
         });
         const t = await r.text();
-        return { creditError: /credit limit exceeded/i.test(t) };
+        return { creditError: /Amount Exceeded than Credit Limit/i.test(t) };
       }, { MIG, csrf, ENTITY, CUSTOMER, CURRENCY, ITEM });
     };
 
