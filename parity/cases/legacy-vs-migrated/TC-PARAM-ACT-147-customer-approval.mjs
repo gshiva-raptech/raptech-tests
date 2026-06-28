@@ -43,16 +43,29 @@ export default {
       await up.waitForTimeout(1500);   // state cascade (AJAX)
       const stateTxt = await up.evaluate(() => { const s = document.querySelector('#state'); return s && s.options.length > 1 ? s.options[1].textContent.trim() : null; });
       if (stateTxt) await forms.migratedChooseMs(up, 'state', stateTxt);
+      // 147 ON renders a REQUIRED Workflow picker (#workflowId, entity-scoped F-0006). When
+      // present, pick the first real option (the seeded flow) so the approval path is routed.
+      await up.waitForTimeout(600);   // let reloadWorkflows() populate after entity preselect
+      await up.evaluate(() => {
+        const w = document.querySelector('#workflowId');
+        if (w && w.options.length > 1) { w.selectedIndex = 1; w.dispatchEvent(new Event('change', { bubbles: true })); }
+      });
       await Promise.all([
         up.waitForLoadState('networkidle').catch(() => {}),
         up.evaluate(() => { if (window.RaptechForm && RaptechForm.trySubmit) RaptechForm.trySubmit(); else document.querySelector('form[data-raptech-form]')?.requestSubmit(); }),
       ]);
       await up.waitForTimeout(1500);
-      const created = /\/customers\/customers\/\d+/.test(up.url());
-      const err = created ? null : await up.evaluate(() => {
+      // Success = redirect off the /new form to a detail OR the customers list (no error banner).
+      const afterUrl = up.url();
+      const detailPage = /\/customers\/customers\/\d+/.test(afterUrl);
+      const listPage = /\/customers\/customers(\/?$|\?)/.test(afterUrl);
+      const err = await up.evaluate(() => {
+        const e = [...document.querySelectorAll('.alert-error, .field-error')].filter(x => x.offsetParent && (x.textContent || '').trim());
+        if (e.length) return e[0].textContent.trim().slice(0, 200);
         const d = [...document.querySelectorAll('div')].filter(x => x.children.length === 0 && /not created/i.test(x.textContent || ''));
         return d.length ? d[0].textContent.trim().slice(0, 200) : null;
       });
+      const created = (detailPage || listPage) && !err;
       const status = psql(`SELECT workflow_status FROM raptech_scm.customer WHERE name = '${name}' ORDER BY customer_id_pk DESC LIMIT 1;`);
       return { created, url: up.url(), status, err };
     };
